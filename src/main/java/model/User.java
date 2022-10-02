@@ -1,39 +1,40 @@
 package model;
 
-import java.util.Set;
+import java.util.List;
 
 public class User {
-    private Long userId;
-    private Long answerCount;
-    private Long questionCount;
+    private Long user_id;
+    private Long answer_count;
+    private Long question_count;
     private Long reputation;
     private String location;
-    private String linkProfile;
-    private String linkAvatar;
-    private Set<String> tags;
+    private String display_name;
+    private String link;
+    private String profile_image;
+    private List<String> tags;
 
-    public Long getUserId() {
-        return userId;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
-    public Long getAnswerCount() {
-        return answerCount;
+    public Long getAnswer_count() {
+        return answer_count;
     }
 
-    public void setAnswerCount(Long answerCount) {
-        this.answerCount = answerCount;
+    public void setAnswer_count(Long answer_count) {
+        this.answer_count = answer_count;
     }
 
-    public Long getQuestionCount() {
-        return questionCount;
+    public Long getQuestion_count() {
+        return question_count;
     }
 
-    public void setQuestionCount(Long questionCount) {
-        this.questionCount = questionCount;
+    public void setQuestion_count(Long question_count) {
+        this.question_count = question_count;
     }
 
     public Long getReputation() {
@@ -52,27 +53,50 @@ public class User {
         this.location = location;
     }
 
-    public String getLinkProfile() {
-        return linkProfile;
+    public String getLink() {
+        return link;
     }
 
-    public void setLinkProfile(String linkProfile) {
-        this.linkProfile = linkProfile;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    public String getLinkAvatar() {
-        return linkAvatar;
+    public String getProfile_image() {
+        return profile_image;
     }
 
-    public void setLinkAvatar(String linkAvatar) {
-        this.linkAvatar = linkAvatar;
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
 
-    public Set<String> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(Set<String> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public String getDisplay_name() {
+        return display_name;
+    }
+
+    public void setDisplay_name(String display_name) {
+        this.display_name = display_name;
+    }
+
+    @Override
+    public String toString() {
+        return "ApiResponseItem{"
+                + "user_id=" + user_id
+                + ", answer_count=" + answer_count
+                + ", question_count=" + question_count
+                + ", reputation=" + reputation
+                + ", location='" + location + '\''
+                + ", display_name='" + display_name + '\''
+                + ", link='" + link + '\''
+                + ", profile_image='" + profile_image + '\''
+                + ", tags=" + tags
+                + '}';
     }
 }

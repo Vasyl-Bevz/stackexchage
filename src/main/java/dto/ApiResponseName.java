@@ -13,8 +13,8 @@ public class ApiResponseName {
 
     @Override
     public String toString() {
-        return "ApiResponseTag{" +
-                "name='" + name + '\'' +
-                '}';
+        return "ApiResponseTag{"
+                + "name='" + name + '\''
+                + '}';
     }
 }

@@ -24,9 +24,9 @@ public class ApiResponseDto {
 
     @Override
     public String toString() {
-        return "ApiResponseDto{" +
-                "items=" + Arrays.toString(items) +
-                ", has_more=" + has_more +
-                '}';
+        return "ApiResponseDto{"
+                + "items=" + Arrays.toString(items)
+                + ", has_more=" + has_more
+                + '}';
     }
 }

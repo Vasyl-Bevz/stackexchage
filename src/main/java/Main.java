@@ -1,18 +1,26 @@
 import Service.HttpClient;
 import Service.Printer;
 import Service.PrinterImpl;
+import Service.TagService;
+import Service.TagServiceImpl;
+import Service.UserService;
+import Service.UserServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import dto.ApiResponseDto;
-import dto.ApiResponseItem;
-import dto.ApiResponseName;
-import dto.ApiResponseTag;
-
-import java.util.ArrayList;
+import dto.Parser;
+import model.User;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     public static int START_PAGE = 1;
+    public static final int ANSWER_COUNT = 1;
     public static String[] TAGS = { "java", ".net", "docker", "C#"};
+    public static String[] LOCATIONS = {"romania", "moldova"};
+    private static final TagService tagService = new TagServiceImpl();
+    private static final Parser parser = new Parser();
+    private static final UserService userService = new UserServiceImpl();
     public static void main(String[] args) throws JsonProcessingException, InterruptedException {
         Printer printer = new PrinterImpl();
         HttpClient httpClient = new HttpClient();
@@ -25,50 +33,26 @@ public class Main {
                             "&pagesize=100&order=asc&min=223&sort=reputation" +
                             "&site=stackoverflow&filter=!0Z-LvgkSiw7B6BDe5tw88nNHR&key=1S3)kMQUelHL6HUlrjvM6w((",
                     ApiResponseDto.class);
-            //System.out.println(apiResponseDto);
-            for (ApiResponseItem item : apiResponseDto.getItems()) {
-                if (item.getQuestion_count() == null || item.getQuestion_count() < 1) {
+            List<User> users = Arrays.stream(apiResponseDto.getItems()).map(parser::itemToModel).collect(Collectors.toList());
+            for (User user : users) {
+                if (!userService.isUserAnswerCountMoreThen(user, ANSWER_COUNT)) {
                     continue;
                 }
-                if (item.getLocation() == null) {
+                if (!userService.isUserInLocation(user, LOCATIONS)) {
                     continue;
                 }
-                if (item.getLocation().toLowerCase().contains("romania") || item.getLocation().toLowerCase().contains("moldova")) {
-                    tags = getTagForItem(item);
-                    //System.out.println(tags);
-                    for (String tag : TAGS) {
-                        if (tags.contains(tag)) {
-                            item.setTags(tags);
-                            printer.toConsole(item);
-                            break;
-                        }
+                Thread.sleep(5000);
+                tags = tagService.getTagForItem(user);
+                for (String tag : TAGS) {
+                    if (tags.contains(tag)) {
+                        userService.addTags(user, tags);
+                        printer.toConsole(user);
+                        break;
                     }
                 }
-
             }
             isNext = apiResponseDto.isHas_more();
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         }
-    }
-
-    private static List<String> getTagForItem(ApiResponseItem item) {
-        HttpClient httpClient = new HttpClient();
-        int currentPage = START_PAGE;
-        boolean isNext = true;
-        List<String> tags = new ArrayList<>();
-        while (isNext) {
-            ApiResponseTag apiResponseTag = httpClient.get("https://api.stackexchange.com/2.3/users/" +
-                            item.getUser_id() +
-                            "/tags?page=" +
-                            currentPage++ +
-                            "&pagesize=100&order=desc&sort=popular&site=stackoverflow&filter=!T.BkwD0bG1jQ4r6cgv" +
-                            "&key=1S3)kMQUelHL6HUlrjvM6w((",
-                    ApiResponseTag.class);
-            for (ApiResponseName tag : apiResponseTag.getItems()) {
-                tags.add(tag.getName());
-            }
-            isNext = apiResponseTag.isHas_more();
-        }
-        return tags;
     }
 }

@@ -1,9 +1,8 @@
 package Service;
 
-import dto.ApiResponseItem;
-
 import java.util.List;
+import model.User;
 
 public interface TagService {
-    List<String> getTagForItem(ApiResponseItem item);
+    List<String> getTagForItem(User user) throws InterruptedException;
 }

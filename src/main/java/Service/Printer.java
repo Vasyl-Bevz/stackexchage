@@ -1,7 +1,7 @@
 package Service;
 
-import dto.ApiResponseItem;
+import model.User;
 
 public interface Printer {
-    void toConsole(ApiResponseItem item);
+    void toConsole(User user);
 }

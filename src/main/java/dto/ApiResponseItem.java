@@ -87,16 +87,16 @@ public class ApiResponseItem {
 
     @Override
     public String toString() {
-        return "ApiResponseItem{" +
-                "user_id=" + user_id +
-                ", answer_count=" + answer_count +
-                ", question_count=" + question_count +
-                ", reputation=" + reputation +
-                ", location='" + location + '\'' +
-                ", display_name='" + display_name + '\'' +
-                ", link='" + link + '\'' +
-                ", profile_image='" + profile_image + '\'' +
-                ", tags=" + tags +
-                '}';
+        return "ApiResponseItem{"
+                + "user_id=" + user_id
+                + ", answer_count=" + answer_count
+                + ", question_count=" + question_count
+                + ", reputation=" + reputation
+                + ", location='" + location + '\''
+                + ", display_name='" + display_name + '\''
+                + ", link='" + link + '\''
+                + ", profile_image='" + profile_image + '\''
+                + ", tags=" + tags
+                + '}';
     }
 }
