@@ -3,10 +3,10 @@
 
 ### Overview
 The project retrieve the list of stack overflow users meeting the following criteria:
-i. Are located in Romania or Moldova
-ii. Have a reputation of min 223 points.
-iii. Answered min 1 question
-iv. Have the tags: "java",".net","docker" or "C#"
+1. Are located in Romania or Moldova
+2. Have a reputation of min 223 points.
+3. Answered min 1 question
+4. Have the tags: "java",".net","docker" or "C#"
 
 ### Project description
 Project uses an HttpClient to get all users from api.stackexchange.com. Then filter them and output to STDOUT.
